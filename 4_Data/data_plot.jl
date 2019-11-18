@@ -1,7 +1,9 @@
 using Plots
 pyplot()
 
-colors = [:red,:green,:blue,:magenta,:black,:yellow,:cyan]
+const electronvolt = 1.602E-19      # [J]
+const boltzmann = 8.617E-5          # [eV/K]
+colors =  [:red,:green,:blue]
 
 plot()
 for i in 1:3
@@ -18,11 +20,20 @@ for i in 1:3
         push!(y,a[2])
     end
 
-    #Removal of x,y pair if y = 0
+    # Remove x,y pair if y = 0
     t = .!(iszero.(y))
     x = x[t]
     y = y[t]
 
-    plot!(x,y,c=colors[i],label=filename,xlim=([0, 1e6]))
+    # Rescale to make the plot more readable
+    x = x*boltzmann;            # Convert to eV
+    y = log10.(y);              # Use log scale
+
+    # Print minimum x-value
+    println("File $(i): min x = $(minimum(x))")
+
+    plot!(x, y, c=colors[i], label=filename, xlim=[0; 80],
+        xlabel="Electron energy [K]",
+        ylabel=latexstring("Collision cross-section [\$\\log_{10}\\ \\mathrm{m}^2\$]"))
 end
 Plots.gui()

@@ -1,4 +1,6 @@
 using Plots
+using DelimitedFiles
+
 pyplot()
 
 const electronvolt = 1.602E-19      # [J]
@@ -27,13 +29,18 @@ for i in 1:3
 
     # Rescale to make the plot more readable
     x = x*boltzmann;            # Convert to eV
-    y = log10.(y);              # Use log scale
+    logy = log10.(y);           # Use log scale
 
     # Print minimum x-value
     println("File $(i): min x = $(minimum(x))")
 
-    plot!(x, y, c=colors[i], label=filename, xlim=[0; 80],
+    plot!(x, logy, c=colors[i], label=filename, xlim=[0; 80],
         xlabel="Electron energy [K]",
         ylabel=latexstring("Collision cross-section [\$\\log_{10}\\ \\mathrm{m}^2\$]"))
+
+    # Write the results to file
+    outfile = "csev$(i).dat"
+    println("Writing $filename...")
+    writedlm(outfile, [x y])
 end
 Plots.gui()

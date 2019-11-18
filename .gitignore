@@ -1,3 +1,4 @@
+*.md.backup
 *.pdf
 *.swp
 **/test

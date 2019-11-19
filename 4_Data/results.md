@@ -132,3 +132,17 @@ The rank of a matrix is greater than 10!
 11×11 Array{Float64,2}:
 ...
 ```
+
+Advanced exercise
+=================
+I will not post the implementation here, but in this case, it would be possible
+to distinguish data with temperature in K from those with energy in eV
+based solely on the numeric value.
+For example, if the mean value of the first column is lower than a suitably
+chosen constant (say, 1E3), we can infer that this is data in eV,
+otherwise we assume it to be in K.
+
+The limitation of this approach lies with choosing the delimiting value.
+If the energies/temperatures were sufficiently varied over several orders
+of magnitude, it would be impossible to find such a value and this method
+would fail.

@@ -8,7 +8,11 @@ function myinv(mat::Matrix)
     elseif det(mat) == 0
         println("Matrix is singular!")
         return nothing
-    else
+	else
+		# Allow inverting higher-rank matrices, but issue a warning
+		if rank(mat) > 10
+			println("The rank of a matrix is greater than 10!")
+		end
         return inv(mat)
     end
 end

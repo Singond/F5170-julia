@@ -49,13 +49,14 @@ p = Params(elemcharge, electronmass, elfield, magfield)
 sol = solve(ODEProblem(derivs!, y0, tspan, p))
 plot!(sol, vars=(1,2), label="positron")
 
-saveimg("epdrift.png")
+#saveimg("epdrift.png")
 
 # Proton
-#p = Params(elemcharge, protonmass, elfield, magfield)
-#tspan = (0.0, 1.0E-7)
-#sol = solve(ODEProblem(derivs!, y0, tspan, p))
-#plot(sol, vars=(1,2), label="proton")
+p = Params(elemcharge, protonmass, elfield, magfield)
+tspan = (0.0, 1.0E-7)
+sol = solve(ODEProblem(derivs!, y0, tspan, p))
+plot(sol, vars=(1,2), label="proton", aspect_ratio=:equal)
+saveimg("protondrift.png")
 
 #t = range(tspan[1],length=1000,stop=tspan[2])
 #a = sol(t)'[:,1:3]

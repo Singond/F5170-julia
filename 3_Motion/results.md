@@ -45,3 +45,19 @@ by comparing the two plots: The proton drifted about 1000x further
 in 1000x longer time interval, showing a linear relationship.
 In other words, the drift velocity has not changed, which is in line
 with theoretical predictions.
+
+Exercise 3
+==========
+See file `motion2.jl`. Its structure is similar, but the `derivs!`
+function now calculates the magnetic field based on the position
+of the particle.
+
+By setting the initial velocity to (1, 1, 0) m, the y_0 parameter
+to 1 m, and the time span of solution to 0.005 s, one can observe
+drift in the positive x-direction for both electron and positron.
+
+```julia
+initvelocity = [1, 1, 0]
+yparam = 1
+````
+![Drift, exercise 3](img/drift3.png)

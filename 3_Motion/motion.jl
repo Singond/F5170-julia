@@ -18,22 +18,44 @@ function derivs!(dy, y, p::Params, t)
 	dy[4:6] = p.charge/p.mass * (p.elfield + y[4:6] × p.magfield)
 end
 
+function saveimg(name::AbstractString)
+	imgdir = "img"
+	if !isdir(imgdir)
+		mkdir(imgdir)
+	end
+	filename = imgdir * "/" * name
+	println("Saving $(filename)...")
+	savefig(filename)
+end
+
 const elemcharge = 1.602E-19      # Elementary charge [C]
 const electronmass = 9.109E-31    # Mass of an electron [kg]
+const protonmass = 1.673E-27    # Mass of an electron [kg]
 
 elfield = [0.0, 1, 0]
 magfield = [0.0, 0, 2]
 initposition = [0.0, 0, 0]
 initvelocity = [-1.0, 0, 0]
 
-p = Params(elemcharge, electronmass, elfield, magfield)
+# Electron
+p = Params(-elemcharge, electronmass, elfield, magfield)
 y0 = [initposition initvelocity]
 tspan = (0.0, 1.0E-10)
-prob = ODEProblem(derivs!, y0, tspan, p)
+sol = solve(ODEProblem(derivs!, y0, tspan, p))
+plt = plot(sol, vars=(1,2), label="electron", aspect_ratio=:equal)
 
-sol = solve(prob)
+# Positron
+p = Params(elemcharge, electronmass, elfield, magfield)
+sol = solve(ODEProblem(derivs!, y0, tspan, p))
+plot!(sol, vars=(1,2), label="positron")
 
-plot(sol, vars=(1,2))
+saveimg("epdrift.png")
+
+# Proton
+#p = Params(elemcharge, protonmass, elfield, magfield)
+#tspan = (0.0, 1.0E-7)
+#sol = solve(ODEProblem(derivs!, y0, tspan, p))
+#plot(sol, vars=(1,2), label="proton")
 
 #t = range(tspan[1],length=1000,stop=tspan[2])
 #a = sol(t)'[:,1:3]

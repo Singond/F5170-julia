@@ -50,11 +50,20 @@ sol = solve(prob)
 plt = plot(sol,vars=(1,2,3), label="proton", linewidth=1,
         xlabel="x", ylabel="y", zlabel="z")
 
-#This is the part where we visualize a few field lines.
+# Draw Earth
+θrange = range(0, π; length=20)
+ϕrange = range(0, 2π; length=20)
+x = [re*cos(p)*sin(t) for t in θrange, p in ϕrange];
+y = [re*sin(p)*sin(t) for t in θrange, p in ϕrange];
+z = [re*cos(t) for t in θrange, p in ϕrange];
+#surface!(x,y,z, color=:deepskyblue3, colorbar=false)
+wireframe!(x,y,z, color=:deepskyblue3)
+
+# This is the part where we visualize a few field lines.
 function fieldline(B,M,ϕ)
     #This function creates field lines of magnetic field from a dipole.
     #I do not understand why this works but email me if you do!
-    xyz = [ sphe2cart(re*2.5*sin(θ)^2,ϕ,θ) for θ in range(-π,stop=π,length=100) ]
+    xyz = [sphe2cart(re*2.5*sin(θ)^2,ϕ,θ) for θ in range(-π, π; length=100)]
     x = [i[1] for i in xyz]
     y = [i[2] for i in xyz]
     z = [i[3] for i in xyz]

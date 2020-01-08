@@ -81,5 +81,13 @@ See the modified file `van_allen.jl` for implementation.
 
 Exercise 5
 ==========
+Running the `van_allen.jl` file produces the following figure:
 
 ![Trajectory of a particle in Van Allen radiation belt](img/van-allen.png)
+
+Three components of the proton movement are apparent:
+First is the gyration of the proton in the magnetic field,
+while the second is an oscillating motion of the gyration center.
+These two components form a helical trajectory along the field lines.
+The third component is a slow rotary “drift” of the meridian plane in which
+the helical movement takes place.

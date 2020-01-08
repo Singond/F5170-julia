@@ -47,7 +47,8 @@ prob = ODEProblem(derivs!,y0,tspan,p)
 
 sol = solve(prob)
 
-plt = plot(sol,vars=(1,2,3))
+plt = plot(sol,vars=(1,2,3), label="proton", linewidth=1,
+        xlabel="x", ylabel="y", zlabel="z")
 
 #This is the part where we visualize a few field lines.
 function fieldline(B,M,ϕ)

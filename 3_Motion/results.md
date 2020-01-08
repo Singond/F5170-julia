@@ -83,11 +83,43 @@ Exercise 5
 ==========
 Running the `van_allen.jl` file produces the following figure:
 
-![Trajectory of a particle in Van Allen radiation belt](img/van-allen.png)
+![Trajectory of a proton in a Van Allen radiation belt](img/van-allen2.png)
 
-Three components of the proton movement are apparent:
+Three components of the proton motion are apparent:
 First is the gyration of the proton in the magnetic field,
 while the second is an oscillating motion of the gyration center.
 These two components form a helical trajectory along the field lines.
 The third component is a slow rotary “drift” of the meridian plane in which
 the helical movement takes place.
+
+Exercise 6
+==========
+The above figure shows the trajectory of a proton whose initial distance
+from the center of Earth is equal to 2.5 times the Earth's radius (R_E).
+By varying this initial distance, different behaviour is observed.
+
+Highest Stable Trajectory
+-------------------------
+With initial distance of r(0) = 5*R_E, the trajectory is stable, but the
+“polar drift” is much more pronounced:
+![Proton starting at 5 R_E](img/van-allen-5ra.png)
+
+At distance of 6*R_E, the trajectory still remains bound (at least in the
+time domain studied), but shows very chaotic behaviour:
+![Proton starting at 5 R_E](img/van-allen-6ra.png)
+
+A proton starting at r(0) = 8.5*R_E remains in the belt for a short time
+before escaping Earth altogether:
+![Proton starting at 5 R_E](img/van-allen-8.5ra.png)
+
+Lowest Stable Trajectory
+------------------------
+On the other hand, decreasing the initial distance leads to slower polar
+drift, as in the case of a proton starting at 1.5*R_E:
+![Proton starting at 5 R_E](img/van-allen-1.5ra.png)
+
+Further reducing the initial distance brings the proton even closer,
+causing it to make several chaotic orbits around Earth before it eventually
+hits the surface. The following trajectory is for the initial
+distance of 1.42*R_E.
+![Proton starting at 5 R_E](img/van-allen-1.42ra.png)

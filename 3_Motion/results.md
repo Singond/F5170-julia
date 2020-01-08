@@ -61,3 +61,25 @@ initvelocity = [1, 1, 0]
 yparam = 1
 ````
 ![Drift, exercise 3](img/drift3.png)
+
+Exercise 4
+==========
+We approximate the magnetic field of Earth as that of a dipole.
+For a dipole with magnetic moment m = (0, 0, m_z), the magnetic
+field is:
+```
+(mu_0 m_z)/(4pi r^5)[3xz, 3yz, 3z^2 - r^2]
+```
+where r is the length of the position vector (x, y, z) and mu_0
+is the permeability of free space.
+
+Given the magnetic field at equator, the z-component of Earth's
+magnetic field can be calculated. The value of m_z is
+approximately 809E20 A m^2.
+
+See the modified file `van_allen.jl` for implementation.
+
+Exercise 5
+==========
+
+![Trajectory of a particle in Van Allen radiation belt](img/van-allen.png)

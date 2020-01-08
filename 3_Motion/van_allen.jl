@@ -5,15 +5,20 @@ using DifferentialEquations
 using LinearAlgebra #vector norm
 using Statistics #mean function
 
+include("common.jl")
+
 function derivs!(dy,y,p,t)
     dy[1:3] = y[4:6]
     dy[4:6] = p[1]/p[2]*(p[3] + y[4:6] × (bfield(y[1:3],p[4])))
 end
 
 function bfield(r,M)
-    @warn("This function calculates the magnetic field from a dipole `M` at position `r`.")
-    @error("This is the function you need to implement yourself... Julia will close now!")
-    exit()
+    if M[1] != 0 || M[2] != 0
+        throw(ArgumentError("This implementation assumes that M is parallel to z"))
+    end
+    x, y, z = r
+    rr = hypot(r...)
+    return ((permeability*M[3])/(4pi*rr^5)) * [3x*z, 3y*z, 3z^2 - rr^2]
 end
 
 function sphe2cart(r,ϕ,θ)
@@ -22,9 +27,9 @@ function sphe2cart(r,ϕ,θ)
 end
 
 E = zeros(3)
-magM = [0,0,NaN] #Calculate it!
+magM = [0, 0, 809E20] #Calculate it!
 q = 1.60217662e-19
-m = 1.6726219e-27 
+m = 1.6726219e-27
 c = 3e8
 re = 6.38e6
 Ek_ev = 5e7
@@ -42,7 +47,7 @@ prob = ODEProblem(derivs!,y0,tspan,p)
 
 sol = solve(prob)
 
-plot(sol,vars=(1,2,3))
+plt = plot(sol,vars=(1,2,3))
 
 #This is the part where we visualize a few field lines.
 function fieldline(B,M,ϕ)
@@ -60,4 +65,5 @@ for i in range(0, stop=2*π, length=10)
     plot!(fieldline(mean_B,magM[3],i)...,c="red", label="")
 end
 Plots.gui() #If you use `plot` inside a for-loop you have to use this to update the figure.
-
+saveimg("van-allen.png")
+display(plt)

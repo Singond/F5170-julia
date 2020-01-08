@@ -37,7 +37,7 @@ Ek_ev = 5e7
 #Velocity
 v = sphe2cart(c/sqrt(1+m*c^2/Ek_ev/abs(q)),0,π/4)
 #Position
-r = sphe2cart(2.5*re,0,π/2)
+r = sphe2cart(1.5*re,0,π/2)
 #State vector
 y0 = [r...,v...] #Three dots are used to unpack the array.
 
@@ -75,5 +75,15 @@ for i in range(0, stop=2*π, length=10)
     plot!(fieldline(mean_B,magM[3],i)...,c="red", label="")
 end
 Plots.gui() #If you use `plot` inside a for-loop you have to use this to update the figure.
-saveimg("van-allen.png")
+#saveimg("van-allen.png")
 display(plt)
+
+# Minimum distance from (0, 0, 0)
+xyz = hcat(sol.u...)'[:,1:3]
+r = hypot.(xyz[:,1], xyz[:,2], xyz[:,3])
+md = minimum(r) - re            # Minimum distance from Earth's surface
+if md > 0
+	println("The minimum distance from Earth was $(md/1000) km")
+else
+	println("The particle hit Earth's surface")
+end

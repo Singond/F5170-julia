@@ -34,7 +34,7 @@ end
 
 elfield = [0.0, 0, 0]
 initposition = [0.0, 0, 0]
-initvelocity = [1, 1, 0]
+initvelocity = [1.0, 1, 0]
 yparam = 1
 
 # Electron
@@ -44,9 +44,10 @@ tspan = (0.0, 0.005)
 sol = solve(ODEProblem(derivs!, y0, tspan, p))
 plt = plot(sol, vars=(1,2), label="electron", aspect_ratio=:equal)
 
-# Electron
+# Positron
 p = Params2(elemcharge, electronmass, elfield, yparam)
 sol = solve(ODEProblem(derivs!, y0, tspan, p))
-plot!(sol, vars=(1,2), label="positron", aspect_ratio=:equal)
+plot!(sol, vars=(1,2), label="positron")
 
-saveimg("drift3.png")
+#saveimg("drift3.png")
+display(plt)
